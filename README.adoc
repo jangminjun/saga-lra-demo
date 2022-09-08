@@ -1,4 +1,4 @@
-= Red Hat FUSE - SAGA-EIP using LRA coordinator demo
+= LRA coordinator를 사용한 Red Hat FUSE - SAGA-EIP 데모
 
 이 데모는 3개의 마이크로 서비스를 red hat fuse 7.8을 사용하였습니다.https://access.redhat.com/documentation/en-us/red_hat_fuse/7.8/[Red Hat Fuse 7.8]:
 
