@@ -99,7 +99,7 @@ mvn clean -DskipTests oc:deploy -Popenshift -Djkube.generator.fromMode=istag -Dj
 
 . POD가 Running 상태가 될 때까지 대기
 
-. `demo-service`의 URL 확인
+. 'demo-service'의 URL 확인
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
@@ -111,6 +111,7 @@ oc get route demo-service -o jsonpath='http://{.spec.host}{"\n"}'
 ----
 curl -X POST "http://{demo-service URL}/camel/purchases/car/3" -H "accept: application/json"
 ----
+
 . 프로젝트 삭제
 +
 [source,bash,options="nowrap",subs="attributes+"]
