@@ -90,45 +90,47 @@ oc new-app --template=lra-coordinator -e LOG_LEVEL=DEBUG
 oc import-image fuse-java-openshift:1.8 --from=registry.access.redhat.com/fuse7/fuse-java-openshift:1.8 -n $(oc project -q) --confirm
 ----
 
-. Build and deploy every microservice to the OpenShift project/namespace:
+. OpenShift project/namespace에 각 마이크로 서비스 빌드/배포:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 mvn clean -DskipTests oc:deploy -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=$(oc project -q)/fuse-java-openshift:1.8
 ----
 
-. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
-Wait until you can see that all POD applications have started up.
+. POD가 Running 상태가 될 때까지 대기
 
-. Retrieve the URL for the `demo-service` application.
+. `demo-service`의 URL 확인
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 oc get route demo-service -o jsonpath='http://{.spec.host}{"\n"}'
 ----
 
-. Open the URL to access the `demo-service` application and then follow the instructions on that page.
-
-. Undeploy the project when it is not longer needed
+. `demo-service` 접속 확인 후 구매 요청
+[source,bash,options="nowrap",subs="attributes+"]
+----
+curl -X POST "http://{demo-service URL}/camel/purchases/car/3" -H "accept: application/json"
+----
+. 프로젝트 삭제
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 mvn oc:undeploy -Popenshift
 ----
 
-== Running the demo standalone on your machine
+== standalone 상태에서 구동
 
-To run this demo as a standalone project on your local machine:
+로컬 머신 위에 standalone 프로젝트로 데모 구동
 
 
-. Start a local LRA-Coordinator
+. local LRA-Coordinator 구동
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 podman run --name lra-coordinator -p 8080:8080 -e LOG_LEVEL=DEBUG jbosstm/lra-coordinator
 ----
 
-. Build the whole project:
+. 모든 project 빌드:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
@@ -137,10 +139,10 @@ cd PROJECT_DIR
 mvn clean package
 ----
 
-. Run all the services (execute the command using different shells, for every microservice POM module):
+. 모든 마이크로 서비스 기동(각 마이크로서비스 디렉토리에서 명령어 수행)
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 mvn spring-boot:run
 ----
-. Go to link:http://localhost:8180[] and then follow the instructions on that page.
+. 접속 link:http://localhost:8180[]
