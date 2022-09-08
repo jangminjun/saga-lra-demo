@@ -1,7 +1,6 @@
 = Red Hat FUSE - SAGA-EIP using LRA coordinator demo
 
-This is a small demo exposing three microservices using link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.8/[Red Hat Fuse 7.8]:
-
+이 데모는 3개의 마이크로 서비스를 red hat fuse 7.8을 사용하였습니다.https://access.redhat.com/documentation/en-us/red_hat_fuse/7.8/[Red Hat Fuse 7.8]:
 
 * `demo-service`: saga를 시작하고 다른 마이크로서비스를 호출하는 메인 마이크로서비스
 * `order-service`: 새 주문을 item 명과 수량과 함께 생성
@@ -18,17 +17,17 @@ This is a small demo exposing three microservices using link:https://access.redh
 |=== 
 
 
-Example requesting a purchase with three cars: 
+차 3대 구매 요청 예제
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 curl -X POST "http://localhost:8180/camel/purchases/car/3" -H  "accept: application/json"
 ----
 
 
-The stock-service will return error when the ItemId is not found or the available quanity is less than the requested.
 
+stock-service는 ItemId를 찾지 못하거나 재고 수량이 없을 경우 에러를 리턴 합니다.
 
-NOTE: For testing purposes (to force the SAGA compensation once the two other microservices have been called), the `demo-service` is hardcoded to throw an error if the quantity equals *27*. 
+NOTE: 2개의 마이크로 서비스가 호출된 후 SAGA 보상(compensation)을 호출하기 위함 입니다. `demo-service` 에 재고 수량이 *27*일 경우 강제적으로 에러가 발생하도록 설정되어 있습니다..
 
 Browse the API's Swagger page: open the root web page for every microservice and click on the link to review the API.
 
