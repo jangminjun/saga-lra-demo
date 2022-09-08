@@ -27,18 +27,19 @@ curl -X POST "http://localhost:8180/camel/purchases/car/3" -H  "accept: applicat
 
 stock-service는 ItemId를 찾지 못하거나 재고 수량이 없을 경우 에러를 리턴 합니다.
 
-NOTE: 2개의 마이크로 서비스가 호출된 후 SAGA 보상(compensation)을 호출하기 위함 입니다. `demo-service` 에 재고 수량이 *27*일 경우 강제적으로 에러가 발생하도록 설정되어 있습니다..
+NOTE: 2개의 마이크로 서비스가 호출된 후 SAGA 보상(compensation)을 호출하기 위함 입니다. `demo-service` 에 재고 수량이 '27'일 경우 강제적으로 에러가 발생하도록 설정되어 있습니다..
 
-Browse the API's Swagger page: open the root web page for every microservice and click on the link to review the API.
+Browse the API's Swagger page: 각 마이크로 서비스의 root web page를 열어서 링크를 클릭하면 API 리뷰가 가능 합니다.
 
 == Narayana LRA Coordinator
 
-This DEMO implements link:https://microservices.io/patterns/data/saga.html[SAGA EIP] using orchestration.
+이 데모는 SAGA orchestration을 구현하였습니다. link:https://microservices.io/patterns/data/saga.html[SAGA EIP]
 
-The coordinator used is implemented by Narayana, meeting the  link:https://github.com/eclipse/microprofile-lra[Eclipse MicroProfile specification]. See the link: link:https://narayana.io/lra/[Long Running Actions (LRA)]
+coordinator는 Narayana으로 구현되었습니다. link:https://github.com/eclipse/microprofile-lra[Eclipse MicroProfile specification].
+LRA(Long Running Actions) 방식을 사용 합니다.: link:https://narayana.io/lra/[Long Running Actions (LRA)]
 
 
-Related links:
+관련 사항:
 
 * link:https://hub.docker.com/r/jbosstm/lra-coordinator/[Docker Hub lra-coordinator image]
 * link:https://github.com/jboss-dockerfiles/narayana/tree/master/lra/lra-coordinator[Dockerfile for lra-coordinator]
@@ -46,39 +47,34 @@ Related links:
 * link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.8/html/apache_camel_development_guide/saga-eip[Red Hat Fuse - Apache Camel Development Guide - Chapter 9. Saga EIP]
 
 
-== Deployment options
+== 배포 옵션
 
-You can run this demo in the following modes:
+아래 옵션 사용이 가능 합니다.
 
 * OpenShift
 * Standalone on your machine
 
+== OpenShift cluster에서 데모 구동
 
-For more details about running the project on OpenShift, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
-
-IMPORTANT: Fuse 7.X requires Java 8 JDK
-
-
-== Running the demo on OpenShift cluster
-
-Fuse images are required for building the application image. The following steps will create a new project, import base images, and finally using link:https://www.eclipse.org/jkube/docs/openshift-maven-plugin[JKube] the application is built and deployed.
+Fuse 이미지는 application 이미지를 빌드하기 위해 필요 합니다. 아래 스텝은 새로운 프로젝트를 만들고 base 이미지를 import 합니다.
+그리고 마지막으로 link:https://www.eclipse.org/jkube/docs/openshift-maven-plugin[JKube]를 사용해서 빌드/배포 합니다.
 
 
-. Log in to your OpenShift cluster:
+. OpenShift cluster 로그인:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 oc login -u developer -p developer
 ----
 
-. Create a new OpenShift project for the demo:
+. 데모 프로젝트 생성:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 oc new-project MY_PROJECT_NAME
 ----
 
-. Deploy the LRA Coordinator POD using the link:https://github.com/jboss-dockerfiles/narayana/tree/master/lra/openshift-template[template]:
+. LRA Coordinator POD 배포 link:https://github.com/jboss-dockerfiles/narayana/tree/master/lra/openshift-template[template]을 이용:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
@@ -87,7 +83,7 @@ oc create -f lra-coordinator-template.yaml
 oc new-app --template=lra-coordinator -e LOG_LEVEL=DEBUG
 ----
 
-. Import base images into your newly created project (MY_PROJECT_NAME):
+. base 이미지 import (MY_PROJECT_NAME):
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
