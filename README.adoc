@@ -142,4 +142,4 @@ mvn spring-boot:run
 ----
 . 접속 link:http://localhost:8180[]
 
-본 데모는 레드햇 Rafael Yáñez Illescas 아키텍트의 허가 아래 수정 및 배포 하였습니다. https://github.com/ryanezil/saga-demo
+
